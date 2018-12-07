@@ -1,24 +1,36 @@
-# Paradox Alarm Interface for Magellan - created by jpbarraca (https://github.com/jpbarraca/pai)
-
-## RPI Image
+# Paradox Alarm Interface for Magellan
+## created by jpbarraca (https://github.com/jpbarraca/pai)
 
 Paradox Alarm Interface for Magellan created by jpbarraca (https://github.com/jpbarraca/pai).<br> Middleware that aims to connect to a Paradox Alarm panel, exposing the interface for monitoring and control via several technologies. With this interface it is possible to integrate Paradox panels with HomeAssistant, OpenHAB, Homebridge or other domotics system that supports MQTT, as well as several IM methods.
-<br>
-I've created the docker image to automate installation and running in direct IP connection with MQTT enabled. The application is started and managed by supervisor.
-<br>
+<p>
+Docker image to automate installation and running in direct IP connection with MQTT enabled. The application is started and managed by supervisor.
+<p>
 Requires a configured MQTT server to run. Configure config/user.py to suite your environment.
 
 # Run with:
 ```
-docker run -d --name='pai' --net='bridge' --privileged \
-    -v '/tmp/pai/config':'/opt/paradox' \
-    jakezp/arm32v7-pai
+docker run -d --name='pai' --network bridge \
+    -v '/docker-data/pai/app':'/opt/paradox':'rw' \
+    -e TZ="Africa/Johannesburg" \
+     jakezp/arm32v7-pai:latest
 ```
 <p>
-Requires a configured MQTT server to run. There are many other options that can be tweaked - check /tmp/pai/config/pai/config/defaults.py for options and add these options to be changed to /tmp/pai/config/pai/config/user.py. Restart pai with:
+Requires a configured MQTT server to run. There are many other options that can be tweaked - check config/defaults.py for options and add these options to be changed to /tmp/pai/config/pai/config/user.py. Restart pai with:
 
 ```
 docker exec pai /usr/bin/supervisorctl restart pai
 ```
-This image is created to run on Raspberry PI.
+
+# Resources:
+    Dockerfile - Build docker image
+    README.md - This file
+    rpi-pai.service - systemd file to auto start docker
+    run.sh - Start the service
+    supervisord.conf - Supervisor config
+<p>
+# RPI Image
+This repo is for creating a docker image for Raspberry PI
+    
+# Dockerhub
+https://hub.docker.com/r/jakezp/arm32v7-pai/
 
