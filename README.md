@@ -15,7 +15,9 @@ docker run -d --name='pai' --network bridge \
      jakezp/arm32v7-pai:latest
 ```
 <p>
-Requires a configured MQTT server to run. There are many other options that can be tweaked - check config/defaults.py for options and add these options to be changed to /tmp/pai/config/pai/config/user.py. Restart pai with:
+Requires a configured MQTT server to run. There are many other options that can be tweaked - check config/defaults.py for options and add these options to be changed to /tmp/pai/config/pai/config/user.py. 
+<p>
+Restart pai with:
 
 ```
 docker exec pai /usr/bin/supervisorctl restart pai
